@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    user: postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      # Specify an initial script to run. In this case, populate DB with some entries.
+      - ./commands.sql:/docker-entrypoint-initdb.d/commands.sql
+      # Persist database locally.
+      - ./postgres_data:/var/lib/postgresql/data
