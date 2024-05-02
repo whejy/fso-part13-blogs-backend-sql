@@ -1,5 +1,7 @@
-const { Sequelize } = require('sequelize')
+const Blog = require('./blog');
 
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+Blog.sync();
 
-module.exports = sequelize
+module.exports = {
+    Blog,
+};

@@ -1,10 +1,11 @@
 {
   "scripts": {
-    "start": "nodemon node cli.js"
+    "start": "nodemon node index.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
     "pg": "^8.11.5",
     "sequelize": "^6.37.3"
   },
