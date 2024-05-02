@@ -1,24 +1,34 @@
 require('dotenv').config();
-const { Sequelize, QueryTypes } = require('sequelize');
+const express = require('express');
 
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+const blogsRouter = require('./routes/api')
 
-const main = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('Database connection established.');
-        await printBlogs();
-        sequelize.close();
-    } catch (error) {
-        console.error('Unable to connect to database:', error);
-    }
-};
+const app = express();
 
-async function printBlogs() {
-    const blogs = await sequelize.query('SELECT * FROM blogs', {
-        type: QueryTypes.SELECT,
-    });
-    return console.log(blogs);
-}
+app.use(express.json())
 
-main();
+app.use('/api/blogs', blogsRouter)
+
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
+// const main = async () => {
+//     try {
+//         await sequelize.authenticate();
+//         console.log('Database connection established.');
+//         await printBlogs();
+//         sequelize.close();
+//     } catch (error) {
+//         console.error('Unable to connect to database:', error);
+//     }
+// };
+
+// async function printBlogs() {
+//     const blogs = await sequelize.query('SELECT * FROM blogs', {
+//         type: QueryTypes.SELECT,
+//     });
+//     return console.log(blogs);
+// }
+
+// main();
