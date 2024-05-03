@@ -9,7 +9,12 @@ const userFinder = async (req, res, next) => {
 
 router.get('/', async (req, res) => {
     const users = await User.findAll({
-        include: Blog
+        include: {
+            model: Blog,
+            attributes: {
+                exclude: ['userId']
+            }
+        }
     });
     res.json(users);
 });
