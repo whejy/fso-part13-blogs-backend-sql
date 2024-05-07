@@ -26,6 +26,19 @@ Blog.init(
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
+        year: {
+            type: DataTypes.INTEGER,
+            validate: {
+                isValidYear(value) {
+                    const [min, max] = [1991, new Date().getFullYear()];
+                    if (value < 1991 || value > max) {
+                        throw new Error(
+                            `Year must be between ${min} and ${max}`
+                        );
+                    }
+                },
+            },
+        },
     },
     { sequelize, underscored: true, modelName: 'blog' }
 );

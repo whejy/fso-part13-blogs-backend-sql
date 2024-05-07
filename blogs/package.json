@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "nodemon node index.js"
+    "start": "nodemon node index.js",
+    "migration:down": "node util/rollback.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

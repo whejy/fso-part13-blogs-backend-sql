@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 const up = async ({ context: queryInterface }) => {
     await queryInterface.createTable('blogs', {
@@ -23,11 +23,11 @@ const up = async ({ context: queryInterface }) => {
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
-        createdAt: {
-            type: Sequelize.DATE,
+        created_at: {
+            type: DataTypes.DATE,
         },
-        updatedAt: {
-            type: Sequelize.DATE,
+        updated_at: {
+            type: DataTypes.DATE,
         },
     }),
     
@@ -49,16 +49,16 @@ const up = async ({ context: queryInterface }) => {
                 isEmail: true,
             },
         },
-        createdAt: {
-            type: Sequelize.DATE,
+        created_at: {
+            type: DataTypes.DATE,
         },
-        updatedAt: {
-            type: Sequelize.DATE,
+        updated_at: {
+            type: DataTypes.DATE,
         },
     }),
 
     queryInterface.addColumn('blogs', 'user_id', {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'users',

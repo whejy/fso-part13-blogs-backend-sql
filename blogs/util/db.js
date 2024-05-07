@@ -4,20 +4,6 @@ const { Umzug, SequelizeStorage } = require('umzug');
 
 const sequelize = new Sequelize(DATABASE_URL);
 
-const runMigrations = async () => {
-    const migrator = new Umzug({
-        migrations: { glob: 'migrations/*.js' },
-        context: sequelize.getQueryInterface(),
-        storage: new SequelizeStorage({ sequelize, tableName: 'migrations' }),
-        logger: console,
-    });
-
-    const migrations = await migrator.up();
-    console.log('Migrations up tp date', {
-        files: migrations.map((m) => m.name),
-    });
-};
-
 const connectToDatabase = async () => {
     try {
         await sequelize.authenticate();
@@ -31,4 +17,25 @@ const connectToDatabase = async () => {
     return null;
 };
 
-module.exports = { connectToDatabase, sequelize };
+const migrationConfig = {
+    migrations: { glob: 'migrations/*.js' },
+    context: sequelize.getQueryInterface(),
+    storage: new SequelizeStorage({ sequelize, tableName: 'migrations' }),
+    logger: console,
+};
+
+const runMigrations = async () => {
+    const migrator = new Umzug(migrationConfig);
+    const migrations = await migrator.up();
+    console.log('Migrations up tp date', {
+        files: migrations.map((m) => m.name),
+    });
+};
+
+const rollbackMigration = async () => {
+    await sequelize.authenticate();
+    const migrator = new Umzug(migrationConfig);
+    await migrator.down();
+};
+
+module.exports = { connectToDatabase, sequelize, rollbackMigration };
