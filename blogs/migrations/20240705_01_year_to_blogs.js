@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 const up = async ({ context: queryInterface }) => {
-    queryInterface.addColumn('blogs', 'year', {
+    await queryInterface.addColumn('blogs', 'year', {
         type: DataTypes.INTEGER,
     });
 };
