@@ -27,7 +27,7 @@ Blog.init(
             defaultValue: 0,
         },
     },
-    { sequelize, underscored: true, timestamps: false, modelName: 'blog' }
+    { sequelize, underscored: true, modelName: 'blog' }
 );
 
 module.exports = Blog;

@@ -10,6 +10,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       # Specify an initial script to run. In this case, populate DB with some entries.
-      - ./commands.sql:/docker-entrypoint-initdb.d/commands.sql
+      # - ./commands.sql:/docker-entrypoint-initdb.d/commands.sql
       # Persist database locally.
       - ./postgres_data:/var/lib/postgresql/data
