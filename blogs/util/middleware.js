@@ -6,6 +6,7 @@ const handledErrors = [
     'TypeError',
     'SequelizeDatabaseError',
     'SequelizeValidationError',
+    'SequelizeForeignKeyConstraintError'
 ];
 
 const errorHandler = (err, req, res, next) => {

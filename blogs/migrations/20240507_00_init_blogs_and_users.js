@@ -57,7 +57,7 @@ const up = async ({ context: queryInterface }) => {
         },
     }),
 
-    queryInterface.addColumn('blogs', 'user_id', {
+    await queryInterface.addColumn('blogs', 'user_id', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

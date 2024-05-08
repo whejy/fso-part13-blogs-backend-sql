@@ -6,5 +6,7 @@ CREATE TABLE blogs (
     likes INTEGER DEFAULT 0
 );
 
-INSERT INTO blogs (author, url, title) values ('John', 'www.test.com', 'A Test Blog');
-INSERT INTO blogs (url, title) values ('www.noauthor.com', 'A Blog With No Author');
+INSERT INTO blogs (author, url, title, year, user_id) values ('John', 'www.test.com', 'A Test Blog', 1990, 1);
+INSERT INTO blogs (athuor, url, title, year) values ('My Smith', 'www.coolblog.com', 'A Very Cool Blog', 1995);
+
+UPDATE blogs SET year = 1800 WHERE id = 5;
