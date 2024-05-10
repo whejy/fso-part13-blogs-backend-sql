@@ -1,13 +1,14 @@
 const router = require('express').Router();
 require('express-async-errors');
-const { ReadingList, User } = require('../models');
+const { ReadingList } = require('../models');
+const { tokenExtractor } = require('../util/middleware');
 
 router.post('/', async (req, res) => {
     const list = await ReadingList.create({ ...req.body });
     res.json(list);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', tokenExtractor, async (req, res) => {
     const readingListBlog = await ReadingList.findByPk(req.params.id);
 
     if (!readingListBlog)

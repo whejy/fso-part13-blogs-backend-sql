@@ -2,11 +2,6 @@ const router = require('express').Router();
 require('express-async-errors');
 const { User, Blog } = require('../models');
 
-const userFinder = async (req, res, next) => {
-    req.user = await User.findOne({ where: { username: req.params.username } });
-    next();
-};
-
 router.get('/', async (req, res) => {
     const users = await User.findAll({
         include: {
@@ -39,7 +34,7 @@ router.get('/:id', async (req, res) => {
                 attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
                 through: {
                     attributes: ['read', 'id'],
-                    where
+                    where,
                 },
             },
         ],
@@ -57,12 +52,22 @@ router.post('/', async (req, res) => {
     res.json(newUser);
 });
 
-router.put('/:username', userFinder, async (req, res) => {
-    if (req.body.username) {
-        req.user.username = req.body.username;
-        await req.user.save();
+router.put('/:username', async (req, res) => {
+    const updatedUser = await User.findOne({
+        where: { username: req.params.username },
+    });
+    if (updatedUser) {
+        try {
+            updatedUser.username = req.body.username;
+            await updatedUser.save();
+            return res.status(200).json(updatedUser);
+        } catch (err) {
+            next(err);
+        }
     }
-    res.json(req.user);
+    return res
+        .status(400)
+        .json({ message: `username ${req.params.username} not found` });
 });
 
 module.exports = router;

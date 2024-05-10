@@ -7,6 +7,6 @@ CREATE TABLE blogs (
 );
 
 INSERT INTO blogs (author, url, title, year, user_id) values ('John', 'www.test.com', 'A Test Blog', 1990, 1);
-INSERT INTO blogs (athuor, url, title, year) values ('My Smith', 'www.coolblog.com', 'A Very Cool Blog', 1995);
+INSERT INTO blogs (author, url, title, year, user_id) values ('My Smith', 'www.coolblog.com', 'A Very Cool Blog', 1995, 2);
 
-UPDATE blogs SET year = 1800 WHERE id = 5;
+UPDATE sessions SET expired = true WHERE id = 1;
